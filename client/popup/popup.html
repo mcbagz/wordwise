@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WordWise</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div id="auth-container">
+      <div id="login-view">
+        <h1>Login to WordWise</h1>
+        <form id="login-form">
+          <input type="email" id="login-email" placeholder="Email" required>
+          <input type="password" id="login-password" placeholder="Password" required>
+          <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+      </div>
+      <div id="signup-view" style="display: none;">
+        <h1>Sign Up for WordWise</h1>
+        <form id="signup-form">
+          <input type="email" id="signup-email" placeholder="Email" required>
+          <input type="password" id="signup-password" placeholder="Password" required>
+          <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="#" id="show-login">Log in</a></p>
+      </div>
+    </div>
+
+    <div id="main-content" style="display: none;">
+      <h1>WordWise Settings</h1>
+      <p id="user-info"></p>
+      <div class="setting">
+        <label for="grammar">Grammar Suggestions</label>
+        <input type="checkbox" id="grammar" name="grammar" checked>
+      </div>
+      <div class="setting">
+        <label for="tone">Tone Suggestions</label>
+        <input type="checkbox" id="tone" name="tone" checked>
+      </div>
+      <div class="setting">
+        <label for="seo">SEO Suggestions</label>
+        <input type="checkbox" id="seo" name="seo" checked>
+      </div>
+      <div class="setting">
+          <label for="tone-preference">Tone Preference</label>
+          <select id="tone-preference" name="tone-preference">
+              <option value="professional">Professional</option>
+              <option value="witty">Witty</option>
+              <option value="inspiring">Inspiring</option>
+              <option value="casual">Casual</option>
+          </select>
+      </div>
+      <button id="logout-btn">Logout</button>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html> 
