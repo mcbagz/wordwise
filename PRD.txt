@@ -1,257 +1,288 @@
-Product Requirements Document (PRD)
-Title: Chrome Extension for Content Creators: Grammar, Tone, Style, and SEO Assistant
-Version: 1.0
+1. Introduction & Vision
+WordWise is an AI-powered writing assistant designed as a Chrome extension for content creators on X and Instagram. It provides real-time feedback on grammar, readability, and tone, directly within the text fields of these platforms, streamlining the content creation process. With the addition of premium features, WordWise now offers advanced AI-driven tools to inspire, enhance, and analyze posts, making it a comprehensive platform for crafting high-quality, engaging, and discoverable content.
+The vision is to empower creators to produce compelling content with confidence and efficiency, seamlessly integrated into their workflows on X and Instagram. By combining real-time writing assistance with premium features like inspiration saving, post improvement, tone customization, image captioning, and performance analysis, WordWise enables creators to elevate their content and maximize engagement while staying true to their unique voice.
+2. Goals & Objectives
+Improve Content Quality: Deliver actionable suggestions to correct grammatical errors, enhance style, and improve readability.
 
-1. Introduction
-Purpose: This PRD outlines the requirements for a Chrome extension designed to assist content creators on X, Instagram, and YouTube by providing real-time suggestions for grammar, tone, style, and SEO. The extension aims to enhance content quality, engagement, and discoverability, addressing the needs of users like Sarah, Jamal, Maya, Liam, Priya, and Ethan.
-Scope: The extension will:
-Monitor text input in X (post composer), Instagram (caption field), and YouTube (title, description, tags).
+Optimize for Engagement: Provide insights into tone and platform-specific best practices, with premium features to refine posts for specific emotional impacts or audience resonance.
 
-Provide real-time suggestions for grammar (correctness), tone (platform-appropriate emotion), style (clarity and impact), and SEO (keywords and hashtags).
+Increase Discoverability: Offer platform-aware suggestions to boost content visibility.
 
-Operate as a hybrid system with lightweight client-side processing and server-side AI/NLP analysis.
+Inspire Creativity: Enable creators to save inspiring posts as context and generate tailored captions or improvements based on user-defined goals.
 
-Be intuitive, non-intrusive, and tailored to each platform’s unique requirements.
+Provide Actionable Insights: Analyze post performance to help creators understand what drives success or failure.
 
-Target Audience: Content creators (e.g., bloggers, influencers, vloggers) who create text-based content on X, Instagram, and YouTube.
-2. Goals and Objectives
-User Goals:
-Improve content quality with accurate grammar and polished style.
+Seamless User Experience: Ensure a non-intrusive, intuitive interface that integrates with X and Instagram.
 
-Align tone with platform expectations (e.g., witty for X, inspiring for Instagram, informative for YouTube).
+Enable Personalization: Allow customization of analysis settings, tone preferences, and a personal dictionary, with premium features for advanced tone adjustments and inspiration management.
 
-Boost discoverability through SEO-optimized keywords and hashtags.
+Premium Differentiation: Reserve advanced AI-driven features (e.g., inspiration saving, post analysis, image captioning) for premium subscribers to enhance value for professional creators.
 
-Enhance productivity with real-time, non-disruptive suggestions.
+3. Target Audience
+The primary target audience is digital content creators who write and publish content on:
+X (formerly Twitter)
 
-Business Goals:
-Deliver a valuable tool to differentiate from competitors like Grammarly.
+Instagram
 
-Support a freemium model with basic features free and advanced features (e.g., custom tone profiles) premium.
+This includes social media managers, influencers, marketers, and individuals aiming to communicate effectively and engage audiences on these platforms.
+4. Features & Functionality
+4.1. Core Analysis Engine
+The system analyzes user-provided text and returns suggestions and insights. The analysis is broken down into modules that can be toggled by the user.
+Grammar & Spelling Check:
+Identifies grammatical errors, typos, and punctuation mistakes.
 
-Build a scalable, secure system to handle growing user bases.
+Provides one or more suggested replacements for each error.
 
-3. Functional Requirements
-The extension will consist of client-side (Chrome extension) and server-side components, with clear delineation of responsibilities.
-3.1 Client-Side Functional Requirements (Chrome Extension)
-Text Capture:
-Detect and monitor text input in:
-X: Post composer field.
+Users can apply a replacement with a single click.
 
-Instagram: Caption field.
+Style & Readability Analysis:
+Readability Score: Calculates the Flesch-Kincaid grade level and provides a human-friendly interpretation.
 
-YouTube: Title, description, and tags fields.
-
-Use content scripts to target platform-specific DOM elements (e.g., <textarea> or contenteditable).
-
-Capture text changes in real time via input or DOM mutation events.
-
-Send platform metadata (e.g., “platform: YouTube, field: description”) with API requests.
-
-User Interface:
-Display suggestions via:
-Inline underlines for grammar errors (e.g., red for misspellings).
-
-Pop-ups for tone and style suggestions (e.g., “Replace ‘good’ with ‘compelling’ for impact”).
-
-Sidebar for SEO suggestions (e.g., “Add #TravelBlogger for Instagram”).
-
-Ensure UI is compact for Instagram, detailed for YouTube, and minimal for X.
-
-Allow users to accept/reject suggestions with a click or keyboard shortcut.
-
-Provide a settings popup (via extension icon) to toggle suggestion types (grammar, tone, style, SEO) and set tone preferences (e.g., witty, professional).
-
-Local Preprocessing:
-Perform lightweight checks:
-Grammar: Basic regex for common errors (e.g., double spaces, “your” vs. “you’re”).
-
-SEO: Enforce character limits (e.g., 280 for X, 2,200 for Instagram captions, 5,000 for YouTube descriptions).
-
-Tone/Style: Cache user preferences to filter suggestions locally.
-
-Store settings using chrome.storage for persistence and sync.
-
-API Communication:
-Send text and metadata to the server via HTTPS fetch or WebSocket for real-time analysis.
-
-Receive and parse JSON responses containing suggestions.
-
-Handle intermittent connectivity with cached suggestions or error messages.
-
-Event Handling:
-Respond to user interactions (e.g., accept suggestion, hover for details).
-
-Ensure compatibility with platform-specific shortcuts (e.g., X’s post button).
-
-3.2 Server-Side Functional Requirements
-Grammar Analysis:
-Analyze text for spelling, grammar, and punctuation errors (e.g., subject-verb agreement, misplaced commas).
-
-Use rule-based systems for deterministic checks and NLP models (e.g., BERT) for context-aware corrections.
-
-Tailor strictness to platform (e.g., conversational for X, polished for YouTube).
+Passive Voice Detection: Flags passive voice sentences and suggests active voice alternatives.
 
 Tone Analysis:
-Detect tone (e.g., casual, professional, inspiring) using sentiment analysis or text classification models.
+Uses a machine learning model to detect the emotional sentiment of the text.
 
-Suggest adjustments based on user preferences and platform norms (e.g., witty for X, motivational for Instagram).
+Presents the top 3 detected emotions (e.g., “amusement,” “gratitude,” “admiration”).
 
-Support user-defined tone goals (e.g., “always engaging”).
+4.2. Browser Extension: Client-Side
+Platform Integration: Activates on x.com and instagram.com.
 
-Style Analysis:
-Enhance clarity, conciseness, and impact (e.g., suggest active voice, shorter synonyms).
+Automatic Input Detection: Identifies <textarea> and contenteditable fields on supported platforms for analysis.
 
-Use NLP models to evaluate sentence structure and word choice.
+Real-time Analysis Indicator:
+A non-intrusive indicator icon appears next to detected text fields, showing status: idle, loading, suggestions available (with count), or error (e.g., login required).
 
-Align suggestions with platform needs (e.g., short sentences for X/Instagram, structured text for YouTube).
+Suggestion Interface:
+Clicking the indicator opens a suggestion box near the input field, categorizing suggestions (Grammar, Tone, Readability, and premium categories like Improvement, Tone Adjustment, Image Caption).
 
-SEO Optimization:
-Suggest platform-specific keywords and hashtags:
-X: Trending hashtags/topics based on real-time trends.
+Hovering over a suggestion highlights the corresponding text in the input field.
 
-Instagram: Niche hashtags (e.g., #FitnessMotivation) and optimal counts (5-10).
+Interaction with Suggestions:
+One-Click Apply: Users can apply suggested corrections or improvements instantly.
 
-YouTube: Search-optimized keywords for titles/descriptions, leveraging YouTube Data API or trend data.
+Ignore Suggestion: Users can dismiss suggestions, which are not shown again for that text block.
 
-Analyze keyword density and relevance.
+CSS & Styling: UI elements are custom-styled to be clear, professional, and distinct from the host website’s UI.
 
-Maintain a database of SEO best practices per platform.
+4.3. User Account & Personalization
+Authentication:
+Users must create an account and log in to use the service (core and premium features).
 
-Context Detection:
-Identify platform and content type from metadata (e.g., URL, field type).
+The extension popup includes UI for signup and login (email/password) using token-based authentication (JWT).
 
-Adjust suggestion logic based on context (e.g., short-form for X, long-form for YouTube).
+Analysis Settings:
+From the extension popup, users can:
+Enable/disable analysis categories (Grammar, Tone, etc.).
 
-User Data Management:
-Store user preferences (e.g., tone, ignored suggestion types) in a secure cloud database.
+Select a “Tone Preference” (e.g., Professional, Witty) for core tone analysis.
 
-Support custom dictionaries or brand voice guidelines.
+Premium users can access advanced tone adjustments (see “Make This More [Adjective]” below).
 
-Ensure GDPR/CCPA compliance with minimal data retention.
+Settings are synced across browsers using chrome.storage.sync.
 
-3.3 Non-Functional Requirements
+Personal Dictionary:
+Users can add words to a personal dictionary to be ignored by the spell-checker.
+
+Stored on the server and synced across the user’s devices.
+
+4.4. Premium Features
+These features are exclusive to premium subscribers and enhance WordWise’s functionality for professional creators.
+4.4.1. Save Posts as Inspiration
+Description: Users can save posts from X or Instagram as inspiration for future content. The AI uses these posts as context to provide tailored suggestions for new posts.
+
+Functionality:
+While browsing X or Instagram, users can click the WordWise extension icon and select “Save as Inspiration” to store a post (text and, if applicable, image) in their account.
+
+Saved posts are accessible in a “Inspiration Library” tab in the extension popup, categorized by platform (X or Instagram).
+
+Users can tag saved posts with custom labels (e.g., “Witty,” “Promotional”) for easy reference.
+
+When writing a new post, users can select up to 3 saved inspiration posts as context for AI suggestions (e.g., for “Improve This Post” or “Make This More [Adjective]”).
+
+Implementation:
+Add a “Save as Inspiration” button in the extension popup when viewing a post on X or Instagram.
+
+Store saved posts (text, image URL, and metadata like platform and date) on the server, linked to the user’s account.
+
+Ensure compliance with platform terms (e.g., Instagram’s API restrictions) by saving only publicly available post data.
+
+4.4.2. Make This More [Adjective]
+Description: Allows users to specify an adjective (e.g., “witty,” “heartfelt,” “bold”) to receive AI suggestions for adjusting the post’s tone or style to match that adjective.
+
+Functionality:
+In the suggestion box, users select “Make This More…” and input an adjective via a text field or choose from a preset list (e.g., “Witty,” “Inspirational,” “Professional”).
+
+The AI provides suggestions to rewrite the post to align with the chosen adjective, such as alternative phrasing, word choices, or emojis.
+
+Users can optionally include inspiration posts to guide the tone adjustment (e.g., “Make this more witty like [saved post]”).
+
+Suggestions are previewed in the suggestion box, with one-click apply or manual edit options.
+
+Implementation:
+Add a “Make This More…” option in the suggestion box with a text input and preset adjective dropdown.
+
+Leverage the AI’s tone analysis model to generate suggestions, fine-tuned with user-selected inspiration posts if provided.
+
+4.4.3. Analyze This Post
+Description: Provides an AI-driven analysis of a post’s performance (successful or unsuccessful) on X or Instagram, explaining factors contributing to its outcome.
+
+Functionality:
+Users can select a post (their own or another public post) via the extension popup by clicking “Analyze This Post.”
+
+The AI analyzes the post’s text, tone, structure, hashtags, and (if available) engagement metrics (e.g., likes, comments, shares) to determine what worked or didn’t.
+
+Results are displayed in the extension popup, including:
+A summary of the post’s performance (e.g., “High engagement due to strong CTA and trending hashtags”).
+
+Specific factors (e.g., “Short sentences increased readability on X,” “Lack of hashtags reduced discoverability on Instagram”).
+
+Recommendations for future posts based on the analysis.
+
+For the user’s own posts, WordWise can pull engagement data via API integration (if connected) for more accurate analysis.
+
+Implementation:
+Add an “Analyze This Post” button in the extension popup when viewing a post on X or Instagram.
+
+Use AI to analyze text and metadata, with optional API integration for engagement data (via secure OAuth for user accounts).
+
+Display results in a new “Analysis” tab in the extension popup, with exportable insights for premium users.
+
+4.4.4. Improve This Post
+Description: A premium feature allowing users to request a detailed AI-driven analysis of their post with comprehensive suggestions for improvement, optionally using saved inspiration posts as context.
+
+Functionality:
+A “Improve This Post” button appears in the suggestion box when editing a post.
+
+Upon clicking, the AI provides:
+A detailed analysis of the post’s strengths and weaknesses (e.g., engagement potential, clarity, tone alignment).
+
+Specific suggestions to enhance engagement, such as stronger CTAs, better hashtag placement, or structural changes (e.g., shorter sentences for X).
+
+If inspiration posts are selected, the AI incorporates their style, tone, or structure into suggestions (e.g., “Mimic the conversational tone of [saved post]”).
+
+Suggestions are categorized (e.g., “Engagement,” “Structure,” “Hashtags”) and can be applied with one click.
+
+Implementation:
+Add an “Improve This Post” option in the suggestion box, with a sub-menu to select inspiration posts from the user’s library (optional).
+
+Use advanced AI models (e.g., Grok 3’s DeepSearch mode, if available) to analyze the post and generate suggestions, pulling trends or patterns from inspiration posts if provided.
+
+4.4.5. Image Caption
+Description: Generates AI-driven captions for images uploaded to Instagram or X posts, based on user-provided keywords or descriptors.
+
+Functionality:
+When a user uploads an image to a post (detected in the platform’s image upload field or via drag-and-drop in the extension popup), a “Generate Caption” button appears in the suggestion box.
+
+Users can input keywords or descriptors (e.g., “Make a joke,” “Tell a story,” “Inspirational”) to guide the caption’s tone or style.
+
+The AI analyzes the image (using image recognition) and generates 2-3 caption options, displayed in the suggestion box.
+
+Users can select a caption to apply directly to the post or edit it manually.
+
+Implementation:
+Integrate image recognition APIs to analyze uploaded images.
+
+Add a “Generate Caption” option in the suggestion box, with a text field for keywords/descriptors.
+
+Ensure captions align with platform conventions (e.g., concise for X, hashtag-friendly for Instagram).
+
+5. User Flow
+Installation: User installs the WordWise Chrome Extension from the Chrome Web Store.
+
+Signup/Login:
+User navigates to X or Instagram, clicks the extension icon, and signs up or logs in via the popup (email/password).
+
+Configuration:
+Users configure settings in the extension popup (e.g., enable/disable analysis categories, set tone preferences).
+
+Premium users can access advanced settings (e.g., manage inspiration library, connect accounts for performance analysis).
+
+Saving Inspiration:
+While browsing X or Instagram, the user clicks “Save as Inspiration” in the extension popup to store a post.
+
+The post is saved to the Inspiration Library, accessible in the popup.
+
+Writing Content:
+User starts writing a post in a text field on X or Instagram. The WordWise indicator appears, showing real-time analysis status.
+
+After pausing, the indicator displays a suggestion count (e.g., “3 suggestions”).
+
+Reviewing Core Suggestions:
+User clicks the indicator to open the suggestion box, showing Grammar, Tone, and Readability suggestions.
+
+User applies or dismisses suggestions as needed.
+
+Using Premium Features:
+Improve This Post: User clicks “Improve This Post” in the suggestion box, optionally selects inspiration posts, and receives detailed suggestions.
+
+Make This More [Adjective]: User selects “Make This More…” and inputs an adjective (e.g., “witty”). The AI provides tone-adjusted suggestions.
+
+Image Caption: User uploads an image, clicks “Generate Caption,” and inputs descriptors (e.g., “Tell a story”). The AI generates caption options.
+
+Analyze This Post: User selects a post (own or public), clicks “Analyze This Post,” and views performance insights in the extension popup.
+
+Publishing and Analysis:
+User publishes the post and, for their own posts, can later use “Analyze This Post” to review performance (premium feature).
+
+Logout: User logs out from the extension popup, with settings and inspiration library saved to their account.
+
+6. Technical Requirements
+Platform Integration:
+Ensure compatibility with x.com and instagram.com, handling dynamic updates to their DOM structures.
+
+Use platform APIs (where permitted) for engagement data in “Analyze This Post” (e.g., Instagram Graph API, X API).
+
+AI Models:
+Leverage advanced AI models (e.g., from OpenAI) for premium features like image captioning, tone adjustment, and post analysis.
+
+Use image recognition APIs for the Image Caption feature.
+
+Data Storage:
+Store inspiration posts, personal dictionaries, and settings on the server, linked to user accounts.
+
+Ensure secure storage of engagement data and image metadata, complying with GDPR, CCPA, and platform terms.
+
+Authentication:
+Use JWT for secure login and premium feature access.
+
 Performance:
-Client: Minimal resource usage (<50MB memory, low CPU impact).
+Optimize real-time analysis to handle additional premium features without lag.
 
-Server: <200ms latency for suggestion delivery.
+Cache frequently accessed data (e.g., inspiration posts, trending hashtags) to reduce server load.
 
-Handle 1,000 concurrent users with scalable cloud infrastructure (e.g., AWS Lambda).
+UI/UX:
+Maintain a clean, non-intrusive interface by consolidating premium features into the suggestion box and extension popup.
 
-Security:
-Encrypt API calls (TLS) and data at rest.
+Use collapsible tabs (e.g., “Inspiration,” “Analysis”) to avoid clutter.
 
-Avoid processing sensitive fields (e.g., passwords).
+Privacy and Compliance:
+Ensure saved inspiration posts and engagement data comply with platform terms and privacy regulations.
 
-Provide a clear privacy policy.
+Use secure OAuth for account connections in “Analyze This Post.”
 
-Compatibility:
-Support Chrome (latest stable version) on desktop.
+7. Success Metrics
+Core Features:
+User adoption: Number of active users on X and Instagram.
 
-Ensure functionality across X, Instagram, and YouTube (desktop and web-based mobile views).
+Engagement: Frequency of suggestion application (core categories: Grammar, Tone, Readability).
 
-Handle dynamic UI changes (e.g., React-based Instagram).
+Retention: Percentage of users returning weekly.
 
-Reliability:
-Gracefully handle server downtime with cached suggestions or error messages.
+Premium Features:
+Feature usage: Frequency of premium feature interactions (e.g., posts saved as inspiration, captions generated, posts analyzed).
 
-Ensure 99.9% uptime for server-side services.
+Content Impact:
+Discoverability: Increase in hashtag-driven impressions on Instagram or keyword-driven views on X.
 
-4. User Stories
-The extension addresses the following user needs:
-Sarah (X): Real-time suggestions for concise, engaging posts with trending hashtags.
-
-Jamal (X): Simplify jargon and suggest tech hashtags for broader reach.
-
-Maya (Instagram): Hashtag and tone suggestions for discoverable, emotional captions.
-
-Liam (Instagram): Motivational style and hashtag recommendations for fitness content.
-
-Priya (YouTube): Keyword suggestions for video titles/descriptions to boost search ranking.
-
-Ethan (YouTube): Structured, engaging descriptions with gaming keywords.
-
-5. Assumptions and Constraints
-Assumptions:
-Users have stable internet for server-side processing.
-
-Platforms allow text field monitoring via content scripts.
-
-Access to NLP libraries or APIs for grammar/tone/style analysis.
-
+8. Constraints & Assumptions
 Constraints:
-Limited to Chrome browser for initial release.
+Platform API limitations may restrict access to engagement data or post metadata.
 
-Dependent on platform APIs (e.g., YouTube Data API) for SEO, subject to rate limits.
+Image recognition for captions depends on reliable third-party APIs.
 
-Server-side costs must be manageable for freemium model.
+Assumptions:
+Users have a Chrome browser and are active on X and/or Instagram.
 
-6. MVP Scope
-For the Minimum Viable Product (MVP):
-Platforms: Focus on X, Instagram and YouTube.
-
-Features:
-Client: Text capture, inline grammar underlines, pop-up tone/style suggestions, sidebar SEO recommendations.
-
-Server: Basic grammar checks (rule-based), tone detection (pre-trained model), tag suggestions for YouTube.
-
-UI: Inline underlines, compact pop-ups, settings popup via extension icon.
-
-Exclusions: Advanced analytics, custom brand voice, offline mode.
-
-7. Technical Stack (Guidance for LLM)
-Client-Side:
-JavaScript for content scripts and UI rendering.
-
-Chrome Extension APIs (chrome.storage, chrome.runtime).
-
-HTML/CSS for suggestion UI.
-
-Server-Side:
-FastAPI for API server.
-
-NLP libraries (e.g., Hugging Face Transformers, SpaCy) for grammar/tone/style.
-
-External APIs (e.g., Google Trends, YouTube Data API) for SEO.
-
-Cloud hosting (e.g., AWS Lambda, Firebase) for scalability.
-
-Database: SQLite for user preferences.
-
-Communication: HTTPS APIs or WebSocket for real-time interaction.
-
-8. Deliverables
-Chrome extension package (.crx or source for Chrome Web Store).
-
-Server-side API with endpoints for grammar, tone, style, and SEO analysis.
-
-Documentation for setup, configuration, and user onboarding.
-
-Privacy policy and terms of service.
-
-9. Success Metrics
-User Engagement: 80% of users accept at least one suggestion per session.
-
-Performance: <200ms suggestion latency, <50MB client memory usage.
-
-Adoption: 1,000 active users within 3 months of launch.
-
-Retention: 60% of users return within 7 days.
-
-10. Risks and Mitigation
-Risk: Platform UI changes break text capture.
-Mitigation: Regularly test and update DOM selectors.
-
-Risk: High server latency impacts user experience.
-Mitigation: Optimize NLP models and use edge computing.
-
-Risk: Privacy concerns deter users.
-Mitigation: Transparent data policy, minimal data retention, encryption.
-
-11. Stakeholder Notes
-Developers: Focus on modular code for easy feature expansion.
-
-Designers: Prioritize minimal, platform-specific UI.
-
-Users: Provide feedback via in-extension survey for iterative improvements.
-
+9. Conclusion
+The updated WordWise Chrome extension transforms content creation for X and Instagram by combining real-time writing assistance with powerful premium features. By enabling creators to save inspiration, improve posts, customize tone, generate image captions, and analyze performance, WordWise empowers users to craft engaging, discoverable, and impactful content. The seamless integration, intuitive UI, and AI-driven insights position WordWise as a premier tool for social media managers, influencers, and marketers, with premium features adding significant value for professional creators.

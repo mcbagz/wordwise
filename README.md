@@ -1,6 +1,41 @@
-# WordWise: AI Writing Assistant
+# WordWise: Your AI-Powered Writing Assistant for Social Media
 
-This project is a Chrome extension that provides real-time writing suggestions for content creators on social media platforms. It's built with a JavaScript-based Chrome extension client and a Python FastAPI server for NLP analysis.
+WordWise is an intelligent Chrome extension designed for content creators, social media managers, and anyone looking to elevate their writing on **X (formerly Twitter)** and **Instagram**. It provides real-time feedback on grammar, style, tone, and SEO directly within your browser, helping you craft compelling content with confidence and efficiency.
+
+## Features
+
+WordWise offers a suite of tools to enhance your writing process, from initial draft to final post.
+
+### Core Features
+*   **Grammar & Spelling Check**: Corrects typos, grammatical errors, and punctuation mistakes with one-click suggestions.
+*   **Tone & Readability Analysis**: Improves clarity with a readability score and emotional sentiment detection.
+
+### Premium Features
+*   **Save Posts as Inspiration**: Save inspiring posts from X or Instagram to your personal library to guide your future content.
+*   **Improve This Post**: Receive comprehensive suggestions to enhance engagement, clarity, and structure before you post.
+*   **Make This More [Adjective]**: Adjust your post's tone by specifying an adjective (e.g., "witty," "heartfelt," "bold").
+*   **Analyze This Post**: Get an AI-driven analysis of a post's performance, with insights on what made it successful or unsuccessful.
+*   **Image Caption Generator**: Automatically generate engaging captions for your images on X and Instagram.
+
+## Installation
+
+Getting started with WordWise is simple. Since the server is already deployed and running, you only need to install the Chrome extension.
+
+1.  **Download the Extension**: Download the `client` folder from this repository. You can do this by cloning the repository or downloading it as a ZIP file.
+2.  **Open Chrome Extensions**: Open Google Chrome and navigate to `chrome://extensions/`.
+3.  **Enable Developer Mode**: In the top-right corner, toggle on **"Developer mode"**.
+4.  **Load the Extension**:
+    *   Click on **"Load unpacked"**.
+    *   Select the `client` directory you downloaded.
+5.  **Done!**: The "WordWise: AI Writing Assistant" extension will now appear in your list of extensions. Pin it to your toolbar for easy access!
+
+## How to Use
+
+1.  **Log In**: Click the WordWise icon in your Chrome toolbar to sign up or log in.
+2.  **Navigate & Write**: Go to **x.com** or **instagram.com** and start writing a post in any text field.
+3.  **Get Suggestions**: The WordWise indicator icon will appear next to the text field. After you stop typing, it will show the number of available suggestions.
+4.  **Review & Apply**: Click the indicator to open the suggestion box. You can apply, ignore, or customize suggestions.
+5.  **Explore Features**: Use the extension popup and the in-line suggestion box to access all the core and premium features.
 
 ## Project Structure
 
@@ -16,24 +51,32 @@ This project is a Chrome extension that provides real-time writing suggestions f
 │   │   ├── popup.js
 │   │   └── popup.css
 │   └── icons/
+│       ├── icon16.png
+│       ├── icon48.png
+│       └── icon128.png
 ├── server/          # FastAPI Server
 │   ├── main.py
+│   ├── auth.py
+│   ├── crud.py
+│   ├── database.py
+│   ├── models.py
+│   ├── schemas.py
 │   ├── requirements.txt
 │   └── nlp/
 │       └── analysis.py
 └── PRD.txt
 ```
 
-## Getting Started
+## For Developers: Running the Server Locally
+
+If you want to contribute to the project or run your own instance of the backend, follow these steps.
 
 ### Prerequisites
 
 *   Google Chrome
 *   Python 3.8+ and `pip`
 
-### 1. Server Setup
-
-First, set up and run the backend server.
+### Server Setup
 
 1.  **Navigate to the server directory:**
     ```bash
@@ -44,41 +87,10 @@ First, set up and run the backend server.
     ```bash
     pip install -r requirements.txt
     ```
-    *If you encounter permission errors on Windows, try:*
-    ```bash
-    pip install -r requirements.txt --user
-    ```
-    This will also download the `spacy` language model, which may take a few minutes on the first run.
+    *(Note: This will also download the `spacy` language model, which may take a few minutes.)*
 
 3.  **Run the FastAPI server:**
     ```bash
     uvicorn main:app --reload
     ```
-    The server will be running at `http://127.0.0.1:8000`.
-
-### 2. Client Setup (Chrome Extension)
-
-Next, load the extension into Google Chrome.
-
-1.  Open Google Chrome and navigate to `chrome://extensions/`.
-2.  Enable **"Developer mode"** in the top right corner.
-3.  Click on **"Load unpacked"**.
-4.  Select the `client` directory from this project.
-5.  The "WordWise: AI Writing Assistant" extension should now appear in your list of extensions.
-
-### How to Use
-
-Once the server is running and the extension is loaded:
-
-1.  Navigate to [X](https://x.com), [Instagram](https://www.instagram.com), or [YouTube](https://www.youtube.com).
-2.  Click on a text field (e.g., a post composer, a caption field, or a video description).
-3.  Start typing! As you type, suggestions will appear in a box next to the text field.
-4.  You can customize which suggestions you receive by clicking on the extension's icon in the Chrome toolbar.
-
-## Next Steps
-
-This is an MVP (Minimum Viable Product). The next steps for development would be:
-
-*   **Improve NLP models:** Replace the placeholder logic in `server/nlp/analysis.py` with more sophisticated models for grammar, tone, style, and SEO.
-*   **Refine the UI:** Improve the positioning and appearance of the suggestion box.
-*   **Add more features:** Implement features from the PRD like custom dictionaries and advanced analytics. 
+    The server will run at `http://127.0.0.1:8000`. The client is configured to connect to the deployed server, so you may need to update the server URL in `client/background.js` to point to your local instance for testing. 

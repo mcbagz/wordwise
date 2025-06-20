@@ -9,6 +9,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import joinedload
 
 import models, schemas
 from database import SessionLocal
@@ -52,7 +53,11 @@ async def get_db():
         yield session
 
 async def get_user(db: AsyncSession, email: str):
-    result = await db.execute(select(models.User).filter(models.User.email == email))
+    result = await db.execute(
+        select(models.User)
+        .options(joinedload(models.User.inspirations))
+        .filter(models.User.email == email)
+    )
     return result.scalars().first()
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
