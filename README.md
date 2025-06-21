@@ -19,7 +19,9 @@ WordWise offers a suite of tools to enhance your writing process, from initial d
 
 ## Installation
 
-Getting started with WordWise is simple. Since the server is already deployed and running, you only need to install the Chrome extension.
+Getting started with WordWise is simple: [install it here](https://chromewebstore.google.com/detail/wordwise-ai-writing-assis/koacggpfpocpmjekijelppaikmfafklp).
+
+To install the extension manually, you can do the following:
 
 1.  **Download the Extension**: Download the `client` folder from this repository. You can do this by cloning the repository or downloading it as a ZIP file.
 2.  **Open Chrome Extensions**: Open Google Chrome and navigate to `chrome://extensions/`.
